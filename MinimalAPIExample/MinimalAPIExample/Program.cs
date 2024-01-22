@@ -1,4 +1,3 @@
-using System.Reflection.Metadata.Ecma335;
 using MinimalAPIExample.DependencyInjection;
 using MinimalAPIExample.Extensions;
 
@@ -8,7 +7,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddMinimalAPIExampleDependencies(builder.Configuration);
+builder.Services.AddMinimalApiExampleDependencies(builder.Configuration);
 
 var application = builder.Build();
 

@@ -7,8 +7,11 @@ namespace MinimalAPIExample.DependencyInjection;
 
 public static class ServiceCollectionExtensions
 {
-    public static void AddMinimalAPIExampleDependencies(this IServiceCollection services, IConfiguration configuration)
+    public static void AddMinimalApiExampleDependencies(this IServiceCollection services, IConfiguration configuration)
     {
+        if (services == default) { throw new ArgumentNullException(nameof(services)); }
+        if (configuration == default) { throw new ArgumentNullException(nameof(configuration)); }
+        
         ConfigureServices(services);
     }
 

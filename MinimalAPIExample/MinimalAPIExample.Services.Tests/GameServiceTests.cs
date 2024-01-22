@@ -6,23 +6,30 @@ namespace MinimalAPIExample.Services.Tests
     [TestClass]
     public class GameServiceTests
     {
-        private IGameService gameService;
+        private GameService? gameService;
 
         [TestInitialize]
         public void TestInitialize()
         {
-            gameService = new GameService(true);
+            gameService = new(true);
         }
 
         [TestCleanup]
         public void TestCleanup()
         {
-            gameService = null!;
+            gameService = null;
+        }
+
+        [TestMethod]
+        public void InheritanceCheck()
+        {
+            gameService.Should().BeAssignableTo<IGameService>();
         }
         
         [TestMethod]
         public void GetAllGames()
         {
+            CanRunTest(gameService);
             var games = gameService.GetGames();
             games.Should().NotBeEmpty();
             games.Count.Should().Be(15);
@@ -36,6 +43,7 @@ namespace MinimalAPIExample.Services.Tests
         [TestMethod]
         public void AddGame()
         {
+            CanRunTest(gameService);
             try
             {
                 var newGame = new Game
@@ -59,6 +67,7 @@ namespace MinimalAPIExample.Services.Tests
         [DataTestMethod]
         public void GetGame(int id, string expectedTitle)
         {
+            CanRunTest(gameService);
             var game = gameService.GetGame(id);
             game.Should().NotBeNull();
             game.Title.Should().Be(expectedTitle);
@@ -69,6 +78,7 @@ namespace MinimalAPIExample.Services.Tests
         [DataTestMethod]
         public void UpdateGame(int id, string newTitle)
         {
+            CanRunTest(gameService);
             gameService.UpdateGame(id, new () { Title = newTitle });
             var game = gameService.GetGame(id);
             game.Should().NotBeNull();
@@ -81,8 +91,21 @@ namespace MinimalAPIExample.Services.Tests
         [DataTestMethod]
         public void DeleteGame(int id)
         {
+            CanRunTest(gameService);
             var isDeleted = gameService.DeleteGame(id);
             isDeleted.Should().BeTrue();
         }
+
+        #region Helper Methods
+
+        private static void CanRunTest(GameService? service)
+        {
+            if (service == default)
+            {
+                Assert.Fail("Game service is not initialize for test.");
+            }
+        }
+        
+        #endregion Helper Methods
     }
 }

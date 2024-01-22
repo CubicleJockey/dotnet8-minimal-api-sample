@@ -1,10 +1,20 @@
-﻿namespace MinimalAPIExample.Domain.Models;
+﻿using System.ComponentModel.DataAnnotations;
 
+namespace MinimalAPIExample.Domain.Models;
+
+/// <summary>
+/// Game Entity
+/// </summary>
 public class Game
 {
+    [Required]
     public int Id { get; set; }
-    public string? Title { get; set; }
-    public string? Publisher { get; set; }
+
+    [Required]
+    public string Title { get; set; } = null!;
+
+    [Required] 
+    public string Publisher { get; set; } = null!;
 
     public override string ToString()
     {

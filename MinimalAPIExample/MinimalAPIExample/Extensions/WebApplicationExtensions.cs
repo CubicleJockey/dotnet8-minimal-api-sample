@@ -8,6 +8,10 @@ public static class WebApplicationExtensions
 {
     private const string GAME_ENDPOINT_BASE = "games";
     
+    /// <summary>
+    /// Configure the Game Service API Endpoints
+    /// </summary>
+    /// <param name="application">Extensions for the WebApplication Class</param>
     public static void ConfigureGameServiceEndpoints(this WebApplication application)
     {
         ConfigureGetEndpoints(application);
@@ -18,7 +22,7 @@ public static class WebApplicationExtensions
 
     #region Helper Methods
 
-    private static void ConfigureGetEndpoints(WebApplication application)
+    private static void ConfigureGetEndpoints(IEndpointRouteBuilder application)
     {
         application.MapGet($"/{GAME_ENDPOINT_BASE}", (IGameService gameService) => TypedResults.Ok(gameService.GetGames()))
                    .WithName("GetGames");
@@ -30,7 +34,7 @@ public static class WebApplicationExtensions
         }).WithName("GetGameById");
     }
 
-    private static void ConfigurePostEndpoints(WebApplication application)
+    private static void ConfigurePostEndpoints(IEndpointRouteBuilder application)
     {
         application.MapPost($"/{GAME_ENDPOINT_BASE}", (IGameService gameService, Game newGame) =>
         {
@@ -39,7 +43,7 @@ public static class WebApplicationExtensions
         }).WithName("AddGame");
     }
 
-    private static void ConfigurePutEndpoints(WebApplication application)
+    private static void ConfigurePutEndpoints(IEndpointRouteBuilder application)
     {
         application.MapPut($"/{GAME_ENDPOINT_BASE}/{{id}}", (IGameService gameService, int id, Game updatedGame) =>
         {
@@ -48,7 +52,7 @@ public static class WebApplicationExtensions
         }).WithName("UpdateGame");
     }
 
-    private static void ConfigureDeleteEndpoints(WebApplication application)
+    private static void ConfigureDeleteEndpoints(IEndpointRouteBuilder application)
     {
         application.MapDelete($"/{GAME_ENDPOINT_BASE}/{{id}}", (IGameService gameService, int id) =>
         {
