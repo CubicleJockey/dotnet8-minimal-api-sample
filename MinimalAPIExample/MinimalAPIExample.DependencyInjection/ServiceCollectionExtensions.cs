@@ -16,7 +16,6 @@ public static class ServiceCollectionExtensions
     }
 
     #region Helper Methods
-        
 
     private static void ConfigureServices(IServiceCollection services)
     {
