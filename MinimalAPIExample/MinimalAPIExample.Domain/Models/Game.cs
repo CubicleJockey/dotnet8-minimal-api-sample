@@ -24,6 +24,6 @@ public class Game
         Publisher: {Publisher}              
         """;
 
-        return format;
+        return format.Trim();
     }
 }
